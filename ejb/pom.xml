@@ -18,11 +18,6 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.jboss.qe</groupId>
-      <artifactId>ejb-client-connection-leak-ejb-api</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.spec.javax.ejb</groupId>
       <artifactId>jboss-ejb-api_3.1_spec</artifactId>
       <scope>provided</scope>

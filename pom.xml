@@ -5,14 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.qe</groupId>
-    <artifactId>ejb-client-iiop</artifactId>
+    <artifactId>ejb-client-iiop-builder</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>api</module>
         <module>ejb</module>
-        <module>ear</module>
         <module>client</module>
     </modules>
 </project>
