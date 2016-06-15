@@ -1,0 +1,10 @@
+= JBoss EAP ejb iiop call example
+
+A test project to check documentation example on iiop call
+
+Just a test project if code in documentation works right.
+It's about a simple EJB call via IIOP.
+
+== Notes
+
+* running with JBoss EAP 7.0.0.GA with `standalone-full.xml` profile
