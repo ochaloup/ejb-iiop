@@ -19,16 +19,16 @@ public class ClientMain {
         prope.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.cosnaming.CNCtxFactory");
         prope.put(Context.OBJECT_FACTORIES, "org.jboss.tm.iiop.client.IIOPClientUserTransactionObjectFactory");
         
-		try {
-			Context context = new InitialContext(prope);
+        try {
+            Context context = new InitialContext(prope);
 
-			final Object iiopObj = context.lookup(IIOPBean.class.getSimpleName());
-			final IIOPBeanHome beanHome = (IIOPBeanHome) PortableRemoteObject.narrow(iiopObj, IIOPBeanHome.class);
-			final IIOPRemote bean = beanHome.create();
+            final Object iiopObj = context.lookup(IIOPBean.class.getSimpleName());
+            final IIOPBeanHome beanHome = (IIOPBeanHome) PortableRemoteObject.narrow(iiopObj, IIOPBeanHome.class);
+            final IIOPRemote bean = beanHome.create();
 
-			System.out.println("Bean saying: " + bean.sayHello());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            System.out.println("Bean saying: " + bean.sayHello());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

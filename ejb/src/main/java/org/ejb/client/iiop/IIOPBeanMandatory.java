@@ -12,7 +12,7 @@ import javax.ejb.TransactionAttributeType;
 @RemoteHome(IIOPBeanHome.class)
 @Stateless
 public class IIOPBeanMandatory {
-	private static final Logger log = Logger.getLogger(IIOPBeanMandatory.class.getName());
+    private static final Logger log = Logger.getLogger(IIOPBeanMandatory.class.getName());
 
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public String sayHello() throws RemoteException {

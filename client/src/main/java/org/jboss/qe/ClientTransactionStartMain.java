@@ -20,43 +20,43 @@ import com.arjuna.orbportability.ORB;
 import com.sun.corba.se.impl.orbutil.ORBConstants;
 
 public class ClientTransactionStartMain {
-	private static final String HOST = NetworkUtils.formatPossibleIpv6Address("localhost");
-	private static final int PORT = 3528;
-	private static ORB orb = null;
+    private static final String HOST = NetworkUtils.formatPossibleIpv6Address("localhost");
+    private static final int PORT = 3528;
+    private static ORB orb = null;
 
     public static void main(String[] args) {
-    	System.out.println( "Preset for ORB..." );
-    	try {
-    		presetOrb();
+        System.out.println( "Preset for ORB..." );
+        try {
+            presetOrb();
 
-    		// Recovery manager has to be started on client when we want recovery
-        	// and we start the transaction on client
-        	RecoveryManager.manager().startRecoveryManagerThread();
+            // Recovery manager has to be started on client when we want recovery
+            // and we start the transaction on client
+            RecoveryManager.manager().startRecoveryManagerThread();
 
-    		System.out.println( "Getting info from remote bean " + IIOPBeanMandatory.class.getSimpleName() + "..." );
+            System.out.println( "Getting info from remote bean " + IIOPBeanMandatory.class.getSimpleName() + "..." );
 
-        	Context context = getContext();
+            Context context = getContext();
 
-        	System.out.println("Context lookup for IIOP Bean...");
-			final Object iiopObj = context.lookup(IIOPBeanMandatory.class.getSimpleName());
-			final IIOPBeanHome beanHome = (IIOPBeanHome) PortableRemoteObject.narrow(iiopObj, IIOPBeanHome.class);
-			final IIOPRemote bean = beanHome.create();
+            System.out.println("Context lookup for IIOP Bean...");
+            final Object iiopObj = context.lookup(IIOPBeanMandatory.class.getSimpleName());
+            final IIOPBeanHome beanHome = (IIOPBeanHome) PortableRemoteObject.narrow(iiopObj, IIOPBeanHome.class);
+            final IIOPRemote bean = beanHome.create();
 
-			startCorbaTx();
+            startCorbaTx();
 
-			System.out.println("Bean saying: " + bean.sayHello());
+            System.out.println("Bean saying: " + bean.sayHello());
 
-			commitCorbaTx();
-		} catch (Exception e) {
-			try {
-				rollbackCorbaTx();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			throw new RuntimeException(e);
-		} finally {
-			orbShutdown();
-		}
+            commitCorbaTx();
+        } catch (Exception e) {
+            try {
+                rollbackCorbaTx();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            orbShutdown();
+        }
     }
 
     private static Context getContext() throws NamingException {
@@ -73,6 +73,10 @@ public class ClientTransactionStartMain {
     }
 
     private static void presetOrb() throws InvalidName, SystemException {
+        // For client we define how the Narayana will behave
+        System.setProperty("com.arjuna.ats.jts.alwaysPropagateContext", "true");
+
+        // Set orb to be initialized on client and being able to start ORB txn
         Properties properties = new Properties();
         properties.setProperty(ORBConstants.PERSISTENT_SERVER_PORT_PROPERTY, "15151");
         properties.setProperty(ORBConstants.ORB_SERVER_ID_PROPERTY, "1");
@@ -96,17 +100,17 @@ public class ClientTransactionStartMain {
     }
 
     private static void startCorbaTx() throws Exception {
-    	System.out.println("Starting txn");
+        System.out.println("Starting txn");
         OTSManager.get_current().begin();
     }
 
     private static void commitCorbaTx() throws Exception {
-    	System.out.println("Committing txn");
+        System.out.println("Committing txn");
         OTSManager.get_current().commit(true);
     }
 
     private static void rollbackCorbaTx() throws Exception {
-    	System.out.println("Rolling back txn");
+        System.out.println("Rolling back txn");
         OTSManager.get_current().rollback();
     }
 
