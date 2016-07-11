@@ -5,6 +5,13 @@ A test project to check documentation example on iiop call
 Just a test project if code in documentation works right.
 It's about a simple EJB call via IIOP.
 
+== Configure running JBoss EAP
+
+```
+$JBOSS_HOME/bin/jboss-cli.sh -c "/subsystem=iiop-openjdk:write-attribute(name=transactions,value=full),/subsystem=transactions:write-attribute(name=jts,value=true),:shutdown(restart=true)"
+
+```
+
 == Notes
 
 * running with JBoss EAP 7.0.0.GA with `standalone-full.xml` profile
