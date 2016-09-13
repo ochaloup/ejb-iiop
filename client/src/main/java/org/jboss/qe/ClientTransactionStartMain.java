@@ -81,6 +81,7 @@ public class ClientTransactionStartMain {
         properties.setProperty(ORBConstants.PERSISTENT_SERVER_PORT_PROPERTY, "15151");
         properties.setProperty(ORBConstants.ORB_SERVER_ID_PROPERTY, "1");
 
+        // Registers the appropriate filter with the ORB
         new ContextPropagationManager();
 
         org.omg.CORBA.ORB sunOrb = org.omg.CORBA.ORB.init(new String[0], properties);

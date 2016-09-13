@@ -12,6 +12,14 @@ $JBOSS_HOME/bin/jboss-cli.sh -c "/subsystem=iiop-openjdk:write-attribute(name=tr
 
 ```
 
+== Get binaries to deploy
+
+```
+export JBOSS_HOME="~/jboss/jboss-eap-last"
+mvn package
+cp ejb/target/ejb.jar $JBOSS_HOME/standalone/deployments/
+```
+
 == Notes
 
 * running with JBoss EAP 7.0.0.GA with `standalone-full.xml` profile
